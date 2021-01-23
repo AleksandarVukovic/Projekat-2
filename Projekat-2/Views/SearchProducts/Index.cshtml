@@ -1,0 +1,17 @@
+﻿@model Projekat_2.Models.SearchProducts
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View</h1>
+
+<form asp-action="SearchAct">
+    <select asp-for="selectedCategoryId" asp-items="Model.categories"></select>
+    <select asp-for="selectedSupplierId" asp-items="Model.suppliers"></select>
+    <br/>
+    <button type="submit">Pretrazi</button>
+</form>
+
+<partial name="ProductsTable" model="Model.products"  />
