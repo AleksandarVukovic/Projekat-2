@@ -53,7 +53,7 @@ namespace Projekat_2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerTypeId,CustomerDesc")] CustomerDemographic customerDemographic)
+        public async Task<IActionResult> Create([Bind("CustomerDesc")] CustomerDemographic customerDemographic)
         {
             if (ModelState.IsValid)
             {
