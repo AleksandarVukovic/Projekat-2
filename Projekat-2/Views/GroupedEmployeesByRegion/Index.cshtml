@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Projekat_2.Models.GroupedEmployeesByRegion>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RegionDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employeesNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employeesNumber)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
