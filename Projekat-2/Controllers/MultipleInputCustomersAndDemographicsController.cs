@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Projekat_2.Models;
+using Projekat_2.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,14 @@ namespace Projekat_2.Controllers
     public class MultipleInputCustomersAndDemographicsController : Controller
     {
         private readonly NorthwindContext _context;
+        private readonly CustomerService customerService;
+        private readonly CustomerDemographicService customerDemographicService;
 
         public MultipleInputCustomersAndDemographicsController(NorthwindContext context)
         {
             _context = context;
+            customerService = new CustomerService();
+            customerDemographicService = new CustomerDemographicService();
         }
 
         // GET: MultipleInputCustomersAndDemographicsController

@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Projekat_2.Models;
+using Projekat_2.Service;
 
 namespace Projekat_2.Controllers
 {
     public class CustomerDemographicsController : Controller
     {
         private readonly NorthwindContext _context;
+        private readonly CustomerDemographicService customerDemographicService;
 
         public CustomerDemographicsController(NorthwindContext context)
         {
             _context = context;
+            customerDemographicService = new CustomerDemographicService();
         }
 
         // GET: CustomerDemographics
@@ -53,12 +56,11 @@ namespace Projekat_2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerDesc")] CustomerDemographic customerDemographic)
+        public IActionResult Create([Bind("CustomerDesc")] CustomerDemographic customerDemographic)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customerDemographic);
-                await _context.SaveChangesAsync();
+                customerDemographicService.create(customerDemographic, _context);
                 return RedirectToAction(nameof(Index));
             }
             return View(customerDemographic);

@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Projekat_2.Models;
+using Projekat_2.Service;
 
 namespace Projekat_2.Controllers
 {
     public class CustomersController : Controller
     {
         private readonly NorthwindContext _context;
+        private readonly CustomerService customerService;
 
         public CustomersController(NorthwindContext context)
         {
             _context = context;
+            this.customerService = new CustomerService();
         }
 
         // GET: Customers
@@ -53,12 +56,11 @@ namespace Projekat_2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customer customer)
+        public IActionResult Create([Bind("CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                customerService.create(customer, _context);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
