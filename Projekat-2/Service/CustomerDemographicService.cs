@@ -11,7 +11,7 @@ namespace Projekat_2.Service
         internal void create(CustomerDemographic entity, NorthwindContext context)
         {
             string guid = Guid.NewGuid().ToString();
-            string id = guid.Substring(0, 4);
+            string id = guid.Substring(0, 9);
             entity.CustomerTypeId = id;
             context.Add(entity);
             context.SaveChangesAsync();
