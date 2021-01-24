@@ -280,7 +280,12 @@ namespace Projekat_2.Models
                     .HasConstraintName("FK_Employees_Employees");
             });
 
-            modelBuilder.Entity<EmployeeTerritory>(entity =>
+            modelBuilder.Entity<MultipleInputCustomersAndDemographics>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
+                modelBuilder.Entity<EmployeeTerritory>(entity =>
             {
                 entity.HasKey(e => new { e.EmployeeId, e.TerritoryId })
                     .IsClustered(false);
