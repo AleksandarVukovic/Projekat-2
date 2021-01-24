@@ -1,0 +1,17 @@
+﻿@model Projekat_2.Models.CustomerDemographic
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerDesc" class="control-label"></label>
+                <input asp-for="CustomerDesc" class="form-control" />
+                <span asp-validation-for="CustomerDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+  
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
