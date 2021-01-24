@@ -1,3 +1,33 @@
-﻿@{
+﻿@model Projekat_2.Models.MultipleInputCustomersAndDemographics
+
+@{
     ViewData["Title"] = "Multiple insert";
 }
+
+<form asp-action="ChooseView">
+    <div class="form-group">
+        Choose type:
+            <div>
+                @Html.RadioButtonFor(model => model.createCustomers, 1)
+                Create customers by demographic
+            </div>
+            <div>
+                @Html.RadioButtonFor(model => model.createCustomers, 2)
+                Create demographics by customer
+            </div>
+        </div>
+        <div>
+            <input type="submit"  />
+        </div>
+</form>
+
+<div id="PartialView">
+    @if (Model.createCustomers == 1)
+    {
+        Html.RenderPartial("MultipleCustomers", Model);
+    }
+    else if(Model.createCustomers == 2)
+    {
+        Html.RenderPartial("MultipleDemographics", Model);
+    }
+</div>

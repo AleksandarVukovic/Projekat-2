@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Projekat_2.Models;
 using System;
 using System.Collections.Generic;
@@ -20,22 +21,40 @@ namespace Projekat_2.Controllers
         // GET: MultipleInputCustomersAndDemographicsController
         public ActionResult Index()
         {
-            return View();
+            MultipleInputCustomersAndDemographics model = new MultipleInputCustomersAndDemographics();
+            return base.View(model);
         }
 
+        public IActionResult ChooseView(MultipleInputCustomersAndDemographics aaa)
+        {
+            if (aaa.createCustomers == 1)
+            {
+                aaa.multipleCustomers.demographicsInDatabase = _context.CustomerDemographics.Select(x => new SelectListItem(x.CustomerDesc, x.CustomerTypeId.ToString())).ToList(); ;
+            } else if(aaa.createCustomers == 2)
+            {
+                aaa.multipleDemographics.customersInDatabase = _context.Customers.Select(x => new SelectListItem(x.CompanyName, x.CustomerId)).ToList();
+            }
 
-        // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+            return View(nameof(Index), aaa);
+        }
+
+        //GET
+        public IActionResult CreateCustomer(MultipleInputCustomersAndDemographics aaa)
+        {
+
+            aaa.multipleCustomers.newCustomer = new Customer();
+            return View(nameof(Index), aaa);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customer customer)
+        public IActionResult CreateCustomer([Bind("CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customer customer, MultipleInputCustomersAndDemographics aaa)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                aaa.multipleCustomers.newCustomers.Add(customer);
+                aaa.multipleCustomers.newCustomer = null;
+                return View(nameof(Index), aaa);
             }
             return View(customer);
         }
