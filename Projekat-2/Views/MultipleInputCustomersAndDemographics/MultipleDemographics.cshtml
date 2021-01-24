@@ -1,6 +1,79 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-MultipleDemographics
+﻿@model Projekat_2.Models.MultipleInputCustomersAndDemographics
+
+<div>
+    <form asp-action="SearchDemographics">
+        <select asp-for="multipleDemographics.selectedCustomerId" asp-items="Model.multipleDemographics.customersInDatabase"></select>
+        <br />
+        <button type="submit">odaberi</button>
+    </form>
+
+</div>
+
+
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-sm">
+            <p>
+                @using (Html.BeginForm("CreateDemographic", null, FormMethod.Get))
+                {
+                    @Html.Hidden("createCustomers", Model.createCustomers)
+
+                    @if (Model.multipleCustomers.newCustomers != null)
+                    {
+                        @for (int i = 0; i < Model.multipleDemographics.newDemographics.Count(); i++)
+                        {
+                            @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerTypeId)
+                            @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerDesc)
+                        }
+                    }
+
+                    <input type="submit" value="Create demographic" />
+                }
+            </p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.multipleDemographics.newDemographic.CustomerDesc)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.multipleDemographics.newDemographics)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerDesc)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm">
+            @if (Model.multipleDemographics.newDemographic != null)
+            {
+                @using (Html.BeginForm("CreateDemographic", null, FormMethod.Post))
+                {
+                    @Html.Hidden("createCustomers", Model.createCustomers)
+
+                    @if (Model.multipleDemographics.newDemographics != null)
+                    {
+                        @for (int i = 0; i < Model.multipleDemographics.newDemographics.Count(); i++)
+                        {
+                            @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerTypeId)
+                            @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerDesc)
+                        }
+                    }
+
+                    <partial name="~/Views/CustomerDemographics/CreateDemographicsPartialView.cshtml" model="@Model.multipleDemographics.newDemographic" />
+                }
+            }
+
+
+        </div>

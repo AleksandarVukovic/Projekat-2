@@ -59,5 +59,26 @@ namespace Projekat_2.Controllers
             return View(customer);
         }
 
+        //GET
+        public IActionResult CreateDemographic(MultipleInputCustomersAndDemographics aaa)
+        {
+
+            aaa.multipleDemographics.newDemographic= new CustomerDemographic();
+            return View(nameof(Index), aaa);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateDemographic([Bind("CustomerDesc")] CustomerDemographic customerDemographic, MultipleInputCustomersAndDemographics aaa)
+        {
+            if (ModelState.IsValid)
+            {
+                aaa.multipleDemographics.newDemographics.Add(customerDemographic);
+                aaa.multipleDemographics.newDemographic = null;
+                return View(nameof(Index), aaa);
+            }
+            return View(customerDemographic);
+        }
+
     }
 }
