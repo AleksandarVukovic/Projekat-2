@@ -26,7 +26,9 @@ namespace Projekat_2.Service
         internal void batchCreate(List<CustomerDemographic> entities, Customer customer, NorthwindContext context)
         {
                 entities.ForEach(x => x.CustomerTypeId = createId());
-                context.AddRange(entities);
+                List<CustomerCustomerDemo> lists = entities.Select(x => new CustomerCustomerDemo(customer.CustomerId, x.CustomerTypeId)).ToList();
+                context.CustomerDemographics.AddRange(entities);
+                context.CustomerCustomerDemos.AddRange(lists);
                 context.SaveChanges();
            
         }

@@ -1,7 +1,15 @@
 ﻿@model Projekat_2.Models.MultipleInputCustomersAndDemographics
 
 <div>
-    <form asp-action="SearchAct">
+    <form asp-action="SelectDemographic">
+
+        @Html.Hidden("createCustomers", Model.createCustomers)
+        @for (int i = 0; i < Model.multipleCustomers.demographicsInDatabase.Count(); i++)
+        {
+            @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Text)
+            @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Value)
+        }
+
         <select asp-for="multipleCustomers.selectedDemographicId" asp-items="Model.multipleCustomers.demographicsInDatabase"></select>
         <br />
         <button type="submit">odaberi</button>
@@ -43,6 +51,7 @@
                     {
                         @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Text)
                         @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Value)
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Selected)
                     }
 
                     <input type="submit" value="Create customer" />
@@ -150,6 +159,7 @@
                     {
                         @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Text)
                         @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Value)
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Selected)
                     }
 
                     <input type="submit" value="Create customer" />

@@ -43,7 +43,7 @@ namespace Projekat_2.Models
             newDemographics = new List<CustomerDemographic>();
         }
 
-        public string selectedCustomerId;
+        public string selectedCustomerId { get; set; }
         public List<SelectListItem> customersInDatabase { get; set; }
 
         public CustomerDemographic newDemographic { get; set; }

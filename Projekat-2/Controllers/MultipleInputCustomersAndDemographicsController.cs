@@ -43,6 +43,18 @@ namespace Projekat_2.Controllers
             return View(nameof(Index), aaa);
         }
 
+        [HttpPost]
+        public IActionResult SelectDemographic(MultipleInputCustomersAndDemographics model)
+        {
+            string selectedDemographicId = model.multipleCustomers.selectedDemographicId;
+            if (selectedDemographicId != null)
+            {
+                model.multipleCustomers.demographicsInDatabase.Find(x => x.Value.Equals(selectedDemographicId)).Selected = true;
+            }
+
+            return View(nameof(Index), model);
+        }
+
         //GET
         public IActionResult CreateCustomer(MultipleInputCustomersAndDemographics aaa)
         {
@@ -76,9 +88,20 @@ namespace Projekat_2.Controllers
                 customerService.batchCreate(newCustomers, customerDemographic, _context);
 
                 model.multipleCustomers = new MultipleCustomers();
+                model.createCustomers = 0;
                 return View(nameof(Index), model);
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SelectCustomer(MultipleInputCustomersAndDemographics model)
+        {
+            string selectedCustomerId = model.multipleDemographics.selectedCustomerId;
+            if(selectedCustomerId != null) { 
+            model.multipleDemographics.customersInDatabase.Find(x => x.Value.Equals(selectedCustomerId)).Selected = true;
+            }
+            return View(nameof(Index), model);
         }
 
         //GET
@@ -113,11 +136,11 @@ namespace Projekat_2.Controllers
                 List<CustomerDemographic> newDemographics = model.multipleDemographics.newDemographics;
                 customerDemographicService.batchCreate(newDemographics, customer, _context);
 
-                model.multipleCustomers = new MultipleCustomers();
+                model.multipleDemographics = new MultipleDemographics();
+                model.createCustomers = 0;
                 return View(nameof(Index), model);
             }
             return View(model);
         }
 
     }
-}
