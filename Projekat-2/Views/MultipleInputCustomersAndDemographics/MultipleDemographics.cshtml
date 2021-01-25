@@ -12,8 +12,6 @@
 
 <div class="container">
     <div class="row">
-
-
         <div class="col-sm">
             <p>
                 @using (Html.BeginForm("CreateDemographic", null, FormMethod.Get))
@@ -27,6 +25,13 @@
                             @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerTypeId)
                             @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerDesc)
                         }
+                    }
+
+                    @Html.Hidden("multipleDemographics.selectedCustomerId", Model.multipleDemographics.selectedCustomerId)
+                    @for (int i = 0; i < Model.multipleDemographics.customersInDatabase.Count(); i++)
+                    {
+                        @Html.HiddenFor(x => x.multipleDemographics.customersInDatabase[i].Text)
+                        @Html.HiddenFor(x => x.multipleDemographics.customersInDatabase[i].Value)
                     }
 
                     <input type="submit" value="Create demographic" />
@@ -77,3 +82,36 @@
 
 
         </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <p>
+                @using (Html.BeginForm("BatchCreateDemographics", null, FormMethod.Post))
+                {
+                    @Html.Hidden("createCustomers", Model.createCustomers)
+
+                    @if (Model.multipleCustomers.newCustomers != null)
+                    {
+                        @for (int i = 0; i < Model.multipleDemographics.newDemographics.Count(); i++)
+                        {
+                            @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerTypeId)
+                            @Html.HiddenFor(x => x.multipleDemographics.newDemographics[i].CustomerDesc)
+                        }
+                    }
+
+                    @Html.Hidden("multipleDemographics.selectedCustomerId", Model.multipleDemographics.selectedCustomerId)
+                    @for (int i = 0; i < Model.multipleDemographics.customersInDatabase.Count(); i++)
+                    {
+                        @Html.HiddenFor(x => x.multipleDemographics.customersInDatabase[i].Text)
+                        @Html.HiddenFor(x => x.multipleDemographics.customersInDatabase[i].Value)
+                    }
+
+                    <input type="submit" value="Create all" />
+                }
+            </p>
+
+        </div>
+    </div>
+</div>

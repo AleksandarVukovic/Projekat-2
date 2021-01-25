@@ -37,6 +37,14 @@
                             @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Region)
                         }
                     }
+
+                    @Html.Hidden("multipleCustomers.selectedDemographicId", Model.multipleCustomers.selectedDemographicId)
+                    @for (int i = 0; i < Model.multipleCustomers.demographicsInDatabase.Count(); i++)
+                    {
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Text)
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Value)
+                    }
+
                     <input type="submit" value="Create customer" />
                 }
             </p>
@@ -50,15 +58,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(Model.multipleCustomers.newCustomers != null) { 
-                    @foreach (var item in Model.multipleCustomers.newCustomers)
+                    @if (Model.multipleCustomers.newCustomers != null)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CompanyName)
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var item in Model.multipleCustomers.newCustomers)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -93,11 +102,59 @@
                             @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Region)
                         }
                     }
+
+                    @Html.Hidden("multipleCustomers.selectedDemographicId", Model.multipleCustomers.selectedDemographicId)
+                    @for (int i = 0; i < Model.multipleCustomers.demographicsInDatabase.Count(); i++)
+                    {
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Text)
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Value)
+                    }
+
                     <partial name="~/Views/Customers/CreateCustomerPartialView.cshtml" model="@Model.multipleCustomers.newCustomer" />
                 }
             }
         </div>
 
-
     </div>
+
+    <div class="row">
+
+
+        <div class="col-sm">
+            <p>
+                @using (Html.BeginForm("CreateCustomer", null, FormMethod.Get))
+                {
+                    @Html.Hidden("createCustomers", Model.createCustomers)
+
+                    @if (Model.multipleCustomers.newCustomers != null)
+                    {
+                        @for (int i = 0; i < Model.multipleCustomers.newCustomers.Count(); i++)
+                        {
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].CompanyName)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Address)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].City)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].ContactName)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].ContactTitle)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Country)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].CustomerId)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Fax)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Orders)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Phone)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].PostalCode)
+                            @Html.HiddenFor(model => Model.multipleCustomers.newCustomers[i].Region)
+                        }
+                    }
+
+                    @Html.Hidden("multipleCustomers.selectedDemographicId", Model.multipleCustomers.selectedDemographicId)
+                    @for (int i = 0; i < Model.multipleCustomers.demographicsInDatabase.Count(); i++)
+                    {
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Text)
+                        @Html.HiddenFor(x => x.multipleCustomers.demographicsInDatabase[i].Value)
+                    }
+
+                    <input type="submit" value="Create customer" />
+                }
+            </p>
+        </div>
+     </div>
 </div>
