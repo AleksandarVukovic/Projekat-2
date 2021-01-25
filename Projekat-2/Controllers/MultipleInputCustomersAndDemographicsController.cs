@@ -64,6 +64,23 @@ namespace Projekat_2.Controllers
             return View(customer);
         }
 
+        [HttpPost]
+        public IActionResult BatchCreateCustomers(MultipleInputCustomersAndDemographics model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string selectedDemographicId = model.multipleCustomers.selectedDemographicId;
+                CustomerDemographic customerDemographic = _context.CustomerDemographics.Find(selectedDemographicId);
+                List<Customer> newCustomers = model.multipleCustomers.newCustomers;
+                customerService.batchCreate(newCustomers, customerDemographic, _context);
+
+                model.multipleCustomers = new MultipleCustomers();
+                return View(nameof(Index), model);
+            }
+            return View(model);
+        }
+
         //GET
         public IActionResult CreateDemographic(MultipleInputCustomersAndDemographics aaa)
         {
@@ -83,6 +100,23 @@ namespace Projekat_2.Controllers
                 return View(nameof(Index), aaa);
             }
             return View(customerDemographic);
+        }
+
+        [HttpPost]
+        public IActionResult BatchCreateDemographics(MultipleInputCustomersAndDemographics model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string selectedCustomerId = model.multipleDemographics.selectedCustomerId;
+                Customer customer = _context.Customers.Find(selectedCustomerId);
+                List<CustomerDemographic> newDemographics = model.multipleDemographics.newDemographics;
+                customerDemographicService.batchCreate(newDemographics, customer, _context);
+
+                model.multipleCustomers = new MultipleCustomers();
+                return View(nameof(Index), model);
+            }
+            return View(model);
         }
 
     }

@@ -11,11 +11,24 @@ namespace Projekat_2.Service
 
         public void create(Customer entity, NorthwindContext context)
         {
-            string guid = Guid.NewGuid().ToString();
-            string id = guid.Substring(0, 4);
+            string id = createId();
             entity.CustomerId = id;
             context.Add(entity);
-            context.SaveChangesAsync();
+            context.SaveChanges();
+        }
+
+        private static string createId()
+        {
+            string guid = Guid.NewGuid().ToString();
+            string id = guid.Substring(0, 4);
+            return id;
+        }
+
+        public void batchCreate(List<Customer> entities, CustomerDemographic demographic, NorthwindContext context)
+        {
+            entities.ForEach(x => x.CustomerId = createId());
+            context.AddRange(entities);
+            context.SaveChanges();
         }
 
     }
