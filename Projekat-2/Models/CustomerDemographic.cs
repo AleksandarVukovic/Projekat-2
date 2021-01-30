@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -13,6 +14,7 @@ namespace Projekat_2.Models
         }
 
         public string CustomerTypeId { get; set; }
+        [Required]
         public string CustomerDesc { get; set; }
 
         public virtual ICollection<CustomerCustomerDemo> CustomerCustomerDemos { get; set; }

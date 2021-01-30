@@ -35,7 +35,8 @@ namespace Projekat_2.Controllers
             if (aaa.createCustomers == 1)
             {
                 aaa.multipleCustomers.demographicsInDatabase = _context.CustomerDemographics.Select(x => new SelectListItem(x.CustomerDesc, x.CustomerTypeId.ToString())).ToList(); ;
-            } else if(aaa.createCustomers == 2)
+            }
+            else if (aaa.createCustomers == 2)
             {
                 aaa.multipleDemographics.customersInDatabase = _context.Customers.Select(x => new SelectListItem(x.CompanyName, x.CustomerId)).ToList();
             }
@@ -98,8 +99,9 @@ namespace Projekat_2.Controllers
         public IActionResult SelectCustomer(MultipleInputCustomersAndDemographics model)
         {
             string selectedCustomerId = model.multipleDemographics.selectedCustomerId;
-            if(selectedCustomerId != null) { 
-            model.multipleDemographics.customersInDatabase.Find(x => x.Value.Equals(selectedCustomerId)).Selected = true;
+            if (selectedCustomerId != null)
+            {
+                model.multipleDemographics.customersInDatabase.Find(x => x.Value.Equals(selectedCustomerId)).Selected = true;
             }
             return View(nameof(Index), model);
         }
@@ -108,7 +110,7 @@ namespace Projekat_2.Controllers
         public IActionResult CreateDemographic(MultipleInputCustomersAndDemographics aaa)
         {
 
-            aaa.multipleDemographics.newDemographic= new CustomerDemographic();
+            aaa.multipleDemographics.newDemographic = new CustomerDemographic();
             return View(nameof(Index), aaa);
         }
 
@@ -144,3 +146,4 @@ namespace Projekat_2.Controllers
         }
 
     }
+}
