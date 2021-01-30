@@ -8,8 +8,14 @@
 <h1>View</h1>
 
 <form asp-action="SearchAct">
-    <select asp-for="selectedCategoryId" asp-items="Model.categories"></select>
-    <select asp-for="selectedSupplierId" asp-items="Model.suppliers"></select>
+    <div>
+        Category:
+        <select asp-for="selectedCategoryId" asp-items="Model.categories"></select>
+    </div>
+    <div>
+        Supplier:
+        <select asp-for="selectedSupplierId" asp-items="Model.suppliers"></select>
+    </div>
     <br/>
     <button type="submit">Pretrazi</button>
 </form>

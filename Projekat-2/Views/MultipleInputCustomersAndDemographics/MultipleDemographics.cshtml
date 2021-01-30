@@ -9,7 +9,7 @@
             @Html.HiddenFor(x => x.multipleDemographics.customersInDatabase[i].Text)
             @Html.HiddenFor(x => x.multipleDemographics.customersInDatabase[i].Value)
         }
-
+        Select customer:
         <select asp-for="multipleDemographics. selectedCustomerId" asp-items="Model.multipleDemographics.customersInDatabase"></select>
         <br />
         <button type="submit">odaberi</button>
@@ -17,6 +17,8 @@
 
 </div>
 
+<br />
+<br />
 
 <div class="container">
     <div class="row">

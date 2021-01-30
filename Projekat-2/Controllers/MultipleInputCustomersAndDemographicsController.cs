@@ -73,8 +73,11 @@ namespace Projekat_2.Controllers
                 aaa.multipleCustomers.newCustomers.Add(customer);
                 aaa.multipleCustomers.newCustomer = null;
                 return View(nameof(Index), aaa);
+            } else
+            {
+                aaa.multipleCustomers.newCustomer = customer;
             }
-            return View(customer);
+            return View(nameof(Index), aaa);
         }
 
         [HttpPost]
@@ -92,7 +95,7 @@ namespace Projekat_2.Controllers
                 model.createCustomers = 0;
                 return View(nameof(Index), model);
             }
-            return View(model);
+             return View(nameof(Index), model);
         }
 
         [HttpPost]
@@ -124,7 +127,11 @@ namespace Projekat_2.Controllers
                 aaa.multipleDemographics.newDemographic = null;
                 return View(nameof(Index), aaa);
             }
-            return View(customerDemographic);
+            else
+            {
+                aaa.multipleDemographics.newDemographic = customerDemographic;
+            }
+            return View(nameof(Index), aaa);
         }
 
         [HttpPost]
